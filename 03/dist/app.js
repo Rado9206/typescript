@@ -51,4 +51,5 @@ addButtonElement.addEventListener('click', (event) => {
     render();
     taskNameInputElement.value = '';
 });
+addTask({ name: "zrobić szpagat", category: "gym", done: false });
 render();
