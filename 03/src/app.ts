@@ -1,14 +1,19 @@
 const taskNameInputElement: HTMLInputElement = document.querySelector('#name')
 const addButtonElement: HTMLButtonElement = document.querySelector('.add-btn')
 const tasksContainerElement: HTMLElement = document.querySelector('.tasks')
+const categoriesContainerElement: HTMLElement = document.querySelector('.categories')
+
+let selectedCategory: Category
+
+type Category = 'general' | 'work' | 'gym' | 'hobby'
 
 interface Task {
 	name: string
 	done: boolean
-	category?: 'general' | 'work' | 'gym' | 'hobby'
+	category?: Category
 }
 
-const categories: string[] = ['general', 'work', 'gym', 'hobby']
+const categories: Category[] = ['general', 'work', 'gym', 'hobby']
 
 const tasks: Task[] = [
 	{
@@ -58,15 +63,38 @@ const render = () => {
 	})
 }
 
+const renderCategories = () => {
+	categories.forEach(category => {
+		const categoryElement: HTMLElement = document.createElement('li')
+		const radioImputElement: HTMLInputElement = document.createElement('input')
+		radioImputElement.type = 'radio'
+		radioImputElement.name = 'category'
+		radioImputElement.value = category
+		radioImputElement.id = `category-${category}`
+		radioImputElement.addEventListener('change', () => {
+			selectedCategory = category
+		} )
+
+		const labelElement: HTMLLabelElement = document.createElement('label')
+		labelElement.setAttribute('for', `categoty-${category}`)
+		labelElement.innerText = category
+
+		categoryElement.appendChild(radioImputElement)
+		categoryElement.appendChild(labelElement)
+		
+		categoriesContainerElement.appendChild(categoryElement)
+	})
+}
+
 const addTask = (task: Task) => {
 	tasks.push(task)
 }
 
 addButtonElement.addEventListener('click', (event: Event) => {
 	event.preventDefault()
-	addTask({ name: taskNameInputElement.value, done: false })
+	addTask({ name: taskNameInputElement.value, done: false, category: selectedCategory })
 	render()
 	taskNameInputElement.value = ''
 })
-addTask({ name: 'zrobić szpagat', category: 'gym', done: false })
+renderCategories()
 render()
