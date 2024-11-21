@@ -1,24 +1,30 @@
 const taskNameInputElement = document.querySelector('#name');
 const addButtonElement = document.querySelector('.add-btn');
 const tasksContainerElement = document.querySelector('.tasks');
+const categories = ['general', 'work', 'gym', 'hobby'];
 const tasks = [
     {
         name: 'Wyrzucić śmieci',
-        done: false,
+        done: true,
     },
     {
-        name: 'Umyć zęby',
+        name: 'Pójść na trening',
         done: false,
+        category: 'gym',
     },
     {
         name: 'Nakarmić koty',
         done: false,
+        category: 'work',
     },
 ];
 const render = () => {
     tasksContainerElement.innerHTML = '';
     tasks.forEach((task, index) => {
         const taskElement = document.createElement('li');
+        if (task.category) {
+            taskElement.classList.add(task.category);
+        }
         const id = `task-${index}`;
         const labelElement = document.createElement('label');
         labelElement.innerText = task.name;

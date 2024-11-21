@@ -97,3 +97,19 @@ button:hover {
 .work {
 	text-decoration: underline;
 }
+
+.general {
+	color: #333;
+}
+
+.work {
+	color: royalblue;
+}
+
+.gym {
+	color: orange;
+}
+
+.hobby {
+	color: yellowgreen;
+}
