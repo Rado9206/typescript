@@ -1,4 +1,4 @@
-export const renderCategories = (categories, categoriesContainerElement, selectedCategory) => {
+export const renderCategories = (categories, categoriesContainerElement, inputChangeCallback) => {
     categories.forEach(category => {
         const categoryElement = document.createElement('li');
         const radioImputElement = document.createElement('input');
@@ -7,7 +7,7 @@ export const renderCategories = (categories, categoriesContainerElement, selecte
         radioImputElement.value = category;
         radioImputElement.id = `category-${category}`;
         radioImputElement.addEventListener('change', () => {
-            selectedCategory = category;
+            inputChangeCallback(category);
         });
         const labelElement = document.createElement('label');
         labelElement.setAttribute('for', `categoty-${category}`);

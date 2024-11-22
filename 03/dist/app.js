@@ -1,5 +1,5 @@
-import render from "./helpers/render-tasks.helper.js";
-import { renderCategories } from "./helpers/render-categories.helper.js";
+import render from './helpers/render-tasks.helper.js';
+import { renderCategories } from './helpers/render-categories.helper.js';
 const taskNameInputElement = document.querySelector('#name');
 const addButtonElement = document.querySelector('.add-btn');
 const tasksContainerElement = document.querySelector('.tasks');
@@ -25,14 +25,17 @@ const tasks = [
 const addTask = (task) => {
     tasks.push(task);
 };
+const upadateSelectedCategory = (newCategory, category) => {
+    selectedCategory = newCategory;
+};
 addButtonElement.addEventListener('click', (event) => {
     event.preventDefault();
     addTask({
         name: taskNameInputElement.value,
         done: false,
-        category: selectedCategory
+        category: selectedCategory,
     });
     render(tasks, tasksContainerElement);
 });
-renderCategories(categories, categoriesContainerElement, selectedCategory);
+renderCategories(categories, categoriesContainerElement, upadateSelectedCategory);
 render(tasks, tasksContainerElement);
