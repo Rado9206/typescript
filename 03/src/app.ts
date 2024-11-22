@@ -1,6 +1,7 @@
 import { Task, Category } from './types/types.js'
 import render from './helpers/render-tasks.helper.js'
 import { renderCategories } from './helpers/render-categories.helper.js'
+import { TaskClass } from './classes/task.js'
 
 const taskNameInputElement: HTMLInputElement = document.querySelector('#name')
 const addButtonElement: HTMLButtonElement = document.querySelector('.add-btn')
@@ -12,21 +13,9 @@ let selectedCategory: Category
 const categories: Category[] = [Category.GENERAL, Category.WORK, Category.GYM, Category.HOBBY]
 
 const tasks: Task[] = [
-	{
-		name: 'Wyrzucić śmieci',
-		done: true,
-		category: Category.GENERAL,
-	},
-	{
-		name: 'Pójść na trening',
-		done: false,
-		category: Category.GYM,
-	},
-	{
-		name: 'Nakarmić koty',
-		done: false,
-		category: Category.GENERAL,
-	},
+	new Task('Wyrzucić smieci', false, Category.HOBBY),
+	new Task('Pójść na trening', false, Category.GYM),
+	new Task('Nakarmić koty', false, Category.GENERAL),
 ]
 
 const addTask = (task: Task) => {
@@ -39,43 +28,40 @@ const upadateSelectedCategory = (newCategory: Category) => {
 
 addButtonElement.addEventListener('click', (event: Event) => {
 	event.preventDefault()
-	addTask({
-		name: taskNameInputElement.value,
-		done: false,
-		category: selectedCategory,
-	})
+	addTask(new Task(taskNameInputElement.value, false, selectedCategory))
 	render(tasks, tasksContainerElement)
 })
 
 type TaskAsTuple = [string, Category, boolean]
 
-const task: TaskAsTuple = ["zrobić klatę", Category.GYM, false]
+const task: TaskAsTuple = ['zrobić klatę', Category.GYM, false]
 
-const taskName = task[0];
-const taskCategory = task[1];
-const taskDoneStatus = task[2];
-
-addTask({name: taskName, category: taskCategory, done: taskDoneStatus})
+const taskName = task[0]
+const taskCategory = task[1]
+const taskDoneStatus = task[2]
 
 renderCategories(categories, categoriesContainerElement, upadateSelectedCategory)
 render(tasks, tasksContainerElement)
 
-
 type TaskType = {
-	name: string;
-	done: boolean;
-	category?: Category;
+	name: string
+	done: boolean
+	category?: Category
 }
 
 interface TaskInterface {
-	name: string;
-	done: boolean;
-	category?: Category;
+	name: string
+	done: boolean
+	category?: Category
 }
 
-let newTask: TaskInterface;
+let newTask: TaskInterface
 
 newTask = {
-	name: "nowy task",
+	name: 'nowy task',
 	done: true,
 }
+
+const taskClassInstance = new TaskClass('Zadanie z constructora', false)
+
+taskClassInstance.logCreationDate('!!!')
