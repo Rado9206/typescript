@@ -1,4 +1,4 @@
-import { Task, Category } from './types/types'
+import { Task, Category } from './types/types.js'
 import render from './helpers/render-tasks.helper.js'
 import { renderCategories } from './helpers/render-categories.helper.js'
 
@@ -9,22 +9,23 @@ const categoriesContainerElement: HTMLElement = document.querySelector('.categor
 
 let selectedCategory: Category
 
-const categories: Category[] = ['general', 'work', 'gym', 'hobby']
+const categories: Category[] = [Category.GENERAL, Category.WORK, Category.GYM, Category.HOBBY]
 
 const tasks: Task[] = [
 	{
 		name: 'Wyrzucić śmieci',
 		done: true,
+		category: Category.GENERAL,
 	},
 	{
 		name: 'Pójść na trening',
 		done: false,
-		category: 'gym',
+		category: Category.GYM,
 	},
 	{
 		name: 'Nakarmić koty',
 		done: false,
-		category: 'work',
+		category: Category.GENERAL,
 	},
 ]
 
